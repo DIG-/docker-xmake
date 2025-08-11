@@ -15,14 +15,17 @@ fi
 TAG_PREFIX="diguser/xmake-ubuntu"
 TAGS=()
 XMAKE_VERSION=(${XMAKE//./ })
-TAGS+=("-t $TAG_PREFIX:${UBUNTU}-${XMAKE_VERSION[0]}")
-TAGS+=("-t $TAG_PREFIX:${UBUNTU}-${XMAKE_VERSION[0]}.${XMAKE_VERSION[1]}")
-TAGS+=("-t $TAG_PREFIX:${UBUNTU}-${XMAKE_VERSION[0]}.${XMAKE_VERSION[1]}.${XMAKE_VERSION[2]}")
+UBUNTU_VERSION=$UBUNTU
+if [ "$UBUNTU" == "latest" ]; then
+    UBUNTU_VERSION="lts"
+fi
+TAGS+=("-t $TAG_PREFIX:${UBUNTU_VERSION}-${XMAKE_VERSION[0]}")
+TAGS+=("-t $TAG_PREFIX:${UBUNTU_VERSION}-${XMAKE_VERSION[0]}.${XMAKE_VERSION[1]}")
+TAGS+=("-t $TAG_PREFIX:${UBUNTU_VERSION}-${XMAKE_VERSION[0]}.${XMAKE_VERSION[1]}.${XMAKE_VERSION[2]}")
 if [ $XMAKE_LATEST -eq 1 ]; then
+    TAGS+=("-t $TAG_PREFIX:${UBUNTU_VERSION}-latest")
     if [ "$UBUNTU" == "latest" ]; then
-        TAGS+=("-t $TAG_PREFIX:latest")
-    else
-        TAGS+=("-t $TAG_PREFIX:${UBUNTU}-latest")
+        TAGS+=("-t $TAG_PREFIX:latest")    
     fi
 fi
 
