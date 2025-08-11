@@ -27,22 +27,36 @@ if [ $XMAKE_LATEST -eq 1 ]; then
 fi
 
 if [ -n "$(command -v docker)" ]; then
-    echo "Build docker with ubuntu:$UBUNTU and xmake:$XMAKE"
+    echo "=== Build docker with ubuntu:$UBUNTU and xmake:$XMAKE"
     docker build \
         ${TAGS[@]} \
         --build-arg ubuntu=$UBUNTU \
         --build-arg xmake=$XMAKE \
         --compress \
         .
+    if [ -n "$PUSH" ]; then
+        for TAG in "${TAGS[@]}"; do
+            TAG=${TAG#-t }
+            echo "=== Pushing tag $TAG to registry..."
+            docker push $TAG
+        done
+    fi
 elif [ -n "$(command -v podman)" ]; then
-    echo "Build podman with ubuntu:$UBUNTU and xmake:$XMAKE"
+    echo "=== Build podman with ubuntu:$UBUNTU and xmake:$XMAKE"
     podman build \
         ${TAGS[@]} \
         --build-arg ubuntu=$UBUNTU \
         --build-arg xmake=$XMAKE \
         --compress \
         .
+    if [ -n "$PUSH" ]; then
+        for TAG in "${TAGS[@]}"; do
+            TAG=${TAG#-t }
+            echo "=== Pushing tag $TAG to registry..."
+            podman push $TAG
+        done
+    fi
 else
-    echo "Neither docker nor podman is available. Please install one of them to build the image."
+    echo "<!> Neither docker nor podman is available. Please install one of them to build the image."
     exit 1
 fi
