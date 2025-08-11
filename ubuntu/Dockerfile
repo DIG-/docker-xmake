@@ -6,7 +6,6 @@ LABEL version=${xmake}
 LABEL org.opencontainers.image.authors=contato@dig.dev.br
 RUN \
     apt-get update && \
-    apt-get upgrade --no-install-recommends -y && \
     apt-get install --no-install-recommends -y gcc g++ make cmake curl ca-certificates git ssh-client unzip && \
     echo "Download xmake v${xmake}" && \
     cd ~ && \
