@@ -13,7 +13,7 @@ jobs:
       - name: Check script
         run: |
           XMAKE_LATEST=$(curl -fs https://api.github.com/repos/xmake-io/xmake/releases/latest | grep -E "\"tag_name\":\s?\"v[0-9.]+\"" | grep -Eo "[0-9.]+")
-          if [ "$XMAKE_LATEST" != "3.0.0" ]; then
+          if [ "$XMAKE_LATEST" != "3.0.1" ]; then
             echo "::error:: Xmake has update: $XMAKE_LATEST"
             exit 1
           fi
