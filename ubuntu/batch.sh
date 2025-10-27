@@ -2,6 +2,7 @@
 VERSIONS=(
     noble
     plucky
+    questing
     latest
 )
 
