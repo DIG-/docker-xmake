@@ -1,8 +1,8 @@
 #!/bin/bash
 VERSIONS=(
     noble
-    plucky
     questing
+    resolute
     latest
 )
 

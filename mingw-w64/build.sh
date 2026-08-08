@@ -1,5 +1,5 @@
 #!/bin/bash
-UBUNTU=${UBUNTU:-latest}
+DEBIAN=${DEBIAN:-forky}
 if [ -z "$XMAKE" ]; then
     XMAKE_LATEST=1
     XMAKE=$(curl -fs https://api.github.com/repos/xmake-io/xmake/releases/latest | grep -E "\"tag_name\":\s?\"v[0-9.]+\"" | grep -Eo "[0-9.]+")
@@ -23,10 +23,10 @@ if [ $XMAKE_LATEST -eq 1 ]; then
 fi
 
 if [ -n "$(command -v docker)" ]; then
-    echo "=== Build docker with ubuntu:$UBUNTU and xmake:$XMAKE"
+    echo "=== Build docker with debian:$DEBIAN and xmake:$XMAKE"
     docker build \
         ${TAGS[@]} \
-        --build-arg ubuntu=$UBUNTU \
+        --build-arg debian=$DEBIAN \
         --build-arg xmake=$XMAKE \
         --compress \
         .
@@ -38,10 +38,10 @@ if [ -n "$(command -v docker)" ]; then
         done
     fi
 elif [ -n "$(command -v podman)" ]; then
-    echo "=== Build podman with ubuntu:$UBUNTU and xmake:$XMAKE"
+    echo "=== Build podman with debian:$DEBIAN and xmake:$XMAKE"
     podman build \
         ${TAGS[@]} \
-        --build-arg ubuntu=$UBUNTU \
+        --build-arg debian=$DEBIAN \
         --build-arg xmake=$XMAKE \
         --compress \
         .

@@ -1,6 +1,6 @@
-ARG ubuntu=latest
+ARG debian=latest
 ARG xmake=2.8.6
-FROM ubuntu:${ubuntu}
+FROM debian:${debian}
 ARG xmake
 LABEL version=${xmake}
 LABEL org.opencontainers.image.authors=contato@dig.dev.br
